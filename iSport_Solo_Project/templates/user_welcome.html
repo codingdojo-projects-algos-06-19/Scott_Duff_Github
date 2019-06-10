@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>user_welcome.html</title>
+    <style>
+            * {
+                outline-color: orange;
+                outline-style: solid;
+                outline-width: 1px;
+            }
+    </style>
+</head>
+<body>
+    <!--Navbar Section Start-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Game Compiler</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/welcome/user">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Event Menu</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/event/search">Event Search</a>
+                            <a class="dropdown-item" href="/event/create">Create Event</a>
+                        </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/account/user/{{ session.userid }}">Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout/user">Logout</a>
+                </li>
+            </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+        </div>
+    </nav>
+
+    <!--Navbar Section End-->
+    <hr>
+        <div class="text-center">
+            <p style="color:white;">
+            {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+                {% if messages %}                            <!-- check if there are any messages -->
+                    {% for message in messages %}            <!-- loop through the messages -->
+                        <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            </p>
+        </div>
+    <hr>
+    <!--Main Section Start-->
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+
+            <h1 class="display-4">Welcome, {{ session.name }}</h1>
+            <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+            <hr>
+            <h3>Today is: <span id="datetime"></span> and you have {{ 1 }} event today.</h3>
+            <hr>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Game</th>
+                    <th scope="col">Platform</th>
+                    <th scope="col">Current Players</th>
+                    <th scope="col">Max Players</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in eventDateQuery %}
+                    
+                    <tr>
+                    <td>{{ event.game }}</td>
+                    <td>{{ event.platform }}</td>
+                    <td>{{ event.current_players }}</td>
+                    <td>{{ event.max_players }}</td>
+                    <td>{{ event.location }}</td>
+                    <td>{{ event.event_time }}</td>
+                    </tr>
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <hr>
+            <h3>Here are your scheduled events.</h3>
+            <hr>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Game</th>
+                    <th scope="col">Platform</th>
+                    <th scope="col">Current Players</th>
+                    <th scope="col">Max Players</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in eventQuery %}
+                    <tr>
+                    <td>{{ event.game }} </td>
+                    <td>{{ event.platform }}</td>
+                    <td>{{ event.current_players }}</td>
+                    <td>{{ event.max_players }}</td>
+                    <td>{{ event.location }}</td>
+                    <td>{{ event.event_date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div><!--Jumbotron Container End Div-->
+    </div><!--Jumbotron End Div-->
+
+    <!--Main Section End-->
+    <!--Footer Section Start-->
+    <footer class="page-footer font-small blue pt-4">
+        <div class="container-fluid text-center text-md-left">
+            <div class="row">
+                <div class="col-md-6 mt-md-0 mt-3">
+                    <h5 class="text-uppercase">Footer Content</h5>
+                    <p>Here you can use rows and columns to organize your footer content.</p>
+                </div>
+                <hr class="clearfix w-100 d-md-none pb-3">
+                <div class="col-md-3 mb-md-0 mb-3">
+                    <h5 class="text-uppercase">Links</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 4</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-md-0 mb-3">
+                    <h5 class="text-uppercase">Links</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#!">Link 1</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 2</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 3</a>
+                        </li>
+                        <li>
+                            <a href="#!">Link 4</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright text-center py-3">© 2019 Copyright:
+            <a href="https://mdbootstrap.com/education/bootstrap/"> Game Compiler</a>
+        </div>
+    </footer>
+    <!--Footer Section End-->
+    <!--Scripts Below-->
+    <script src="../static/js/user_welcome.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>

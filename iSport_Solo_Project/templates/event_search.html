@@ -30,7 +30,7 @@
                 <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Event Menu</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/event/search">Event Search</a>
+                            <a class="dropdown-item" href="/event/search">Event Database</a>
                             <a class="dropdown-item" href="/event/create">Create Event</a>
                         </div>
                 </li>
@@ -53,32 +53,23 @@
 
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4 text-center">Search Events!</h1>
+            <h1 class="display-4 text-center">Events!</h1>
             <p class="lead text-center">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
             <hr>
-            <form>
+            <!-- <form action="/event/search", method="POST">
                 <div class="form-row text-center">
+                    
                     <div class="col">
-                        <label for="inputState">...</label>
-                        <select id="inputState" class="form-control">
-                            <option selected>Choose...</option>
-                            <option>...</option>
-                            <option>...</option>
-                            <option>...</option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <label for="inputState">...</label>
+                        
                         <h4>Search By:</h4>
                     </div>
                     <div class="col">
-                        <label for="inputState">...</label>
-                            <select id="inputState" class="form-control">
-                                <option selected>Choose...</option>
-                                <option>...</option>
-                                <option>...</option>
-                                <option>...</option>
+                        
+                            <select id="inputState" name="searchSelect" class="form-control">
+                                <option value="event_date" selected>Date</option>
+                                <option value="game">Game</option>
+                                <option value="platform">Platform</option>
+                                <option value="location">Location</option>
                                 <option>...</option>
                             </select>
                     </div>
@@ -86,7 +77,7 @@
                         <button type="submit" class="btn btn-primary mb-2">Submit</button>
                     </div>
                 </div>
-            </form>
+            </form> -->
             <hr>
             <table class="table">
                 <thead>
@@ -109,6 +100,7 @@
                     <td>{{ event.max_players }}</td>
                     <td>{{ event.location }}</td>
                     <td>{{ event.event_date }}</td>
+                    <td><a href="/event/details/{{ event.id }}">Edit</a>|<a href="/delete/event/{{ event.id }}">Delete</a>|<a href="#">Join</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

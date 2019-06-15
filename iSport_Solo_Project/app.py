@@ -242,5 +242,36 @@ def add_event():
     return redirect("/event/search")
 
 
+# Event Update Function
+@app.route("/update/event/<id>", methods=['POST'])
+def update_event(id):
+    Date = datetime.strptime(request.form['updateDate'], '%Y-%m-%d')
+    Time = datetime.strptime(request.form['updateTime'], '%H:%M')
+    event_to_update = Event.query.get(id)
+    event_to_update.game = request.form['updateGame']
+    event_to_update.platform = request.form['updatePlatform']
+    event_to_update.location = request.form['updateLocation']
+    event_to_update.max_players = request.form['updatePlayers']
+    event_to_update.event_date = Date
+    event_to_update.event_time = Time
+    db.session.commit()
+    return redirect("/event/search")
+
+
+# event_details HTML
+@app.route("/event/details/<id>")
+def event_details(id):
+    eventQuery = Event.query.get(id)
+    return render_template("event_details.html", event=eventQuery)
+
+
+@app.route("/delete/event/<id>")
+def deleteEvent(id):
+    delete_event = Event.query.get(id)
+    db.session.delete(delete_event)
+    db.session.commit()
+    return redirect("/event/search")
+
+
 if __name__ == "__main__":
     app.run(debug=True)

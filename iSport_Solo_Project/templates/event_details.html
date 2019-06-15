@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>event_details.html</title>
+    <title>event_Create.html.html</title>
     <style>
             * {
                 outline-color: orange;
@@ -24,23 +24,21 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="/welcome/user">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Event Menu</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="/event/search">Event Database</a>
+                            <a class="dropdown-item" href="/event/create">Create Event</a>
                         </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
+                    <a class="nav-link" href="/account/user/{{ session.userid }}">Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout/user">Logout</a>
                 </li>
             </ul>
                 <form class="form-inline my-2 my-lg-0">
@@ -53,24 +51,69 @@
     <!--Main Section Start-->
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4 text-center">Fluid jumbotron</h1>
+            <h1 class="display-4 text-center">Event Details</h1>
             <p class="lead text-center">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-            
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                    One of three columns
-                    </div>
-                    <div class="col-sm">
-                    One of three columns
-                    </div>
-                </div>
-            </div>
             <hr>
             <div class="container">
                 <div class="row">
                     <div class="col-sm">
-                    Messages
+                        <h5>Game Information</h5>
+                        
+                        <form action="/update/event/{{ event.id }}" method="POST">
+                            <div class="form-group">
+                                <label for="regGame">Game Selector</label>
+                                <select class="form-control" id="updateGame" name="updateGame">
+                                    <option value="{{ event.game }}">{{ event.game }}</option>
+                                    <option value="Super Mario Party">Super Mario Party</option>
+                                    <option value="Super Mario Kart 8">Super Mario Kart 8</option>
+                                    <option value="Monster Hunter Generations Ultimate">Monster Hunter Generations Ultimate</option>
+                                    <option value="Splatoon 2">Splatoon 2</option>
+                                    <option value="Overcooked 2">Overcooked 2</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="regPlatform">Platform Selector</label>
+                                <select class="form-control" id="updatePlatform" name="updatePlatform">
+                                    <option value="{{ event.platform }}">{{ event.platform }}</option>
+                                    <option value="Xbox One">Xbox One</option>
+                                    <option value="Nintendo Switch">Nintendo Switch</option>
+                                    <option value="Playstation 4">Playstation 4</option>
+                                    <option value="PC / Mac">PC / Mac</option>
+                                </select>
+                            </div>
+                            <hr>
+                            <h5>Event Details</h5>
+                            <div class="form-group">
+                                <label for="regLocation">Location</label>
+                                <input type="text" class="form-control" id="updateLocation" name="updateLocation" value="{{ event.location }}" aria-describedby="regLocation" placeholder="Location">
+                                <small id="regLocation" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="regGame">Max Players</label>
+                                <select class="form-control" id="updatePlayers" name="updatePlayers">
+                                    <option value="{{ event.max_players }}">{{ event.max_players }}</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label >Date</label>
+                                <input type="date" class="form-control" name="updateDate" placeholder="{{ event.event_date }}" max="12-31-2050" min="01-01-2018" class="form-control">
+                                <small id="updateDate" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                            <div class="form-group">
+                                <label >Time</label>
+                                <input type="time" class="form-control" name="updateTime" placeholder="{{ event.event_time }}" class="form-control">
+                                <small id="updateTime" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                    <div class="col-sm">
+                    Another Column
                     </div>
                 </div>
             </div>
@@ -137,6 +180,7 @@
     </footer>
     <!--Footer Section End-->
     <!--Scripts Below-->
+    <script src="../static/js/event_create.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>

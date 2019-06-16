@@ -8,37 +8,50 @@
         <link rel="stylesheet" type="text/css" href="../static/css/user_welcome.css">
         <title>user_welcome.html</title>
         <style>
-            * {
+            /* * {
                 outline-color: cyan;
                 outline-style: solid;
                 outline-width: 1px;
+            } */
+            body {
+                background: #e8ecef;
             }
+            .footer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background-color: white;
+                color: black;
+                text-align: center;
+            }
+</style>
         </style>
     </head>
     <body>
 <!--Navbar Section Start-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg p-3 mb-7 rounded">
-        <a class="navbar-brand" href="#">Game Compiler</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand shadow-lg p-3 mb-7 rounded" href="#">Game Compiler</a>
+        <button class="navbar-toggler shadow-lg p-3 mb-7 rounded" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/welcome/user">Home</a>
+                    <a class="nav-link shadow-lg p-3 mb-7 rounded" href="/welcome/user">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Event Menu</a>
+                    <a class="nav-link dropdown-toggle shadow-lg p-3 mb-7 rounded" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Event Menu</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/event/search">Event Database</a>
                         <a class="dropdown-item" href="/event/create">Create Event</a>
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/account/user/{{ session.userid }}">Account</a>
+                    <a class="nav-link shadow-lg p-3 mb-7 rounded" href="/account/user/{{ session.userid }}">Account</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout/user">Logout</a>
+                    <a class="nav-link shadow-lg p-3 mb-7 rounded" href="/logout/user">Logout</a>
                 </li>
             </ul>
         </div>
@@ -147,45 +160,45 @@
     </div><!--Jumbotron End Div-->
 <!--Main Section End-->
 <!--Footer Section Start-->
-    <footer class="page-footer font-small blue pt-4">
+    <div class="footer">
         <div class="container-fluid text-center text-md-left">
-            <div class="row">
+            <div class="row shadow-lg p-3 mb-7 rounded">
                 <div class="col-md-6 mt-md-0 mt-3">
-                    <h5 class="text-uppercase">Footer Content</h5>
-                    <p>Here you can use rows and columns to organize your footer content.</p>
+                    <h5 class="text-uppercase">Game Compiler</h5>
+                    <p>A registered trademark of your robot overlords.</p>
                 </div>
                 <hr class="clearfix w-100 d-md-none pb-3">
                 <div class="col-md-3 mb-md-0 mb-3">
-                    <h5 class="text-uppercase">Links</h5>
+                    <h5 class="text-uppercase">Corporate Links</h5>
                     <ul class="list-unstyled">
                         <li>
-                            <a href="#!">Link 1</a>
+                            <a href="https://www.nintendo.com/">Nintendo</a>
                         </li>
                         <li>
-                            <a href="#!">Link 2</a>
+                            <a href="https://www.xbox.com/">Xbox</a>
                         </li>
                         <li>
-                            <a href="#!">Link 3</a>
+                            <a href="https://www.playstation.com/en-us/">Playstation</a>
                         </li>
                         <li>
-                            <a href="#!">Link 4</a>
+                            <a href="https://store.steampowered.com/">Steam</a>
                         </li>
                     </ul>
                 </div>
                 <div class="col-md-3 mb-md-0 mb-3">
-                    <h5 class="text-uppercase">Links</h5>
+                    <h5 class="text-uppercase">Interesting Links</h5>
                     <ul class="list-unstyled">
                         <li>
-                            <a href="#!">Link 1</a>
+                            <a href="https://discordapp.com/">Discord</a>
                         </li>
                         <li>
-                            <a href="#!">Link 2</a>
+                            <a href="https://www.retroarch.com/">Retroarch</a>
                         </li>
                         <li>
-                            <a href="#!">Link 3</a>
+                            <a href="http://retroachievements.org/">RetroAchievements</a>
                         </li>
                         <li>
-                            <a href="#!">Link 4</a>
+                            <a href="https://www.twitch.tv/directory">Twitch</a>
                         </li>
                     </ul>
                 </div>
@@ -194,7 +207,7 @@
         <div class="footer-copyright text-center py-3">© 2019 Copyright:
             <a href="https://mdbootstrap.com/education/bootstrap/"> Game Compiler</a>
         </div>
-    </footer>
+    </div>
 <!--Footer Section End-->
 <!--Scripts Below-->
     <script src="../static/js/user_welcome.js"></script>

@@ -40,73 +40,106 @@
                     <a class="nav-link" href="/logout/user">Logout</a>
                 </li>
             </ul>
-                
         </div>
     </nav>
 <!--Navbar Section End-->
 <!--Main Section Start-->
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4 text-center shadow-lg p-3 mb-7 rounded">Register Event</h1>
+            <h1 class="display-4 text-center shadow-lg p-3 mb-7 rounded">Event Details</h1>
+            <div class="text-center">
+                <p>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p class="shadow-lg p-3 mb-7 rounded">{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </p>
+            </div>
             <hr>
             <div class="container">
                 <div class="row">
                     <div class="col-sm">
                         
-                        <form class="shadow-lg p-3 mb-7 rounded" action="/add/event" method="POST">
+                        
+                            
+                            <div class="shadow-lg p-3 mb-7 rounded">
                             <h5 class="shadow-lg p-3 mb-7 rounded">Game Information</h5>
-                            <div class="form-group shadow-lg p-3 mb-7 rounded">
-                                <label for="regGame">Game Selector</label>
-                                <select class="form-control" id="regGame" name="regGame">
-                                    <option selected="selected">...</option>
-                                    <option value="Super Mario Party">Super Mario Party</option>
-                                    <option value="Super Mario Kart 8">Super Mario Kart 8</option>
-                                    <option value="Monster Hunter Generations Ultimate">Monster Hunter Generations Ultimate</option>
-                                    <option value="Splatoon 2">Splatoon 2</option>
-                                    <option value="Overcooked 2">Overcooked 2</option>
-                                </select>
-                            </div>
-                            <div class="form-group shadow-lg p-3 mb-7 rounded">
-                                <label for="regPlatform">Platform Selector</label>
-                                <select class="form-control" id="regPlatform" name="regPlatform">
-                                    <option selected="selected">...</option>
-                                    <option value="Xbox One">Xbox One</option>
-                                    <option value="Nintendo Switch">Nintendo Switch</option>
-                                    <option value="Playstation 4">Playstation 4</option>
-                                    <option value="PC / Mac">PC / Mac</option>
-                                </select>
+                            <table class="table shadow-lg p-3 mb-7 rounded">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Game</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ event.game }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Platform</th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ event.game }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                             </div>
                             <hr>
+                            <div class="shadow-lg p-3 mb-7 rounded">
                             <h5 class="shadow-lg p-3 mb-7 rounded">Event Details</h5>
-                            <div class="form-group shadow-lg p-3 mb-7 rounded">
-                                <label for="regLocation">Location</label>
-                                <input type="text" class="form-control" id="regLocation" name="regLocation" aria-describedby="regLocation" placeholder="Location">
-                                <small id="regLocation" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                            </div>
-                            <div class="form-group shadow-lg p-3 mb-7 rounded">
-                                <label for="regGame">Max Players</label>
-                                <select class="form-control" id="regPlayers" name="regPlayers">
-                                    <option selected="selected">...</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                </select>
-                            </div>
-                            <div class="form-group shadow-lg p-3 mb-7 rounded">
-                                <label >Date</label>
-                                <input type="date" class="form-control" name="regDate" max="12-31-2050" min="01-01-2018" class="form-control">
-                                <small id="regLocation" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                            </div>
-                            <div class="form-group shadow-lg p-3 mb-7 rounded">
-                                <label >Time</label>
-                                <input type="time" class="form-control" name="regTime" class="form-control">
-                                <small id="regLocation" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                            </div>
-                            <button type="submit" class="btn btn-primary shadow-lg p-3 mb-7 rounded">Submit</button>
-                        </form>
+                            <table class="table shadow-lg p-3 mb-7 rounded">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Location</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ event.location }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Max Players</th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ event.max_players }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Date</th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ event.event_date }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Time</th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ event.event_time }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="col-sm">
-                        
+                        <form class="shadow-lg p-3 mb-7 rounded" action="/leave/event/{{ event.id }}">
+                            <h5 class="shadow-lg p-3 mb-7 rounded">Active Players</h5>
+                            <table class="table shadow-lg p-3 mb-7 rounded">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for user in eventPlayerQuery %}
+                                    <tr>
+                                        <td>{{ user.first_name }} {{ user.last_name }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-warning shadow-lg p-3 mb-7 rounded">Leave</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -168,4 +201,5 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
+
 </html>

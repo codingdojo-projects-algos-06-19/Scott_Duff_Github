@@ -8,114 +8,99 @@
     <title>signup.html</title>
     <style>
         * {
-            outline-color: orange;
+            outline-color: cyan;
             outline-style: solid;
             outline-width: 1px;
         }
     </style>
 </head>
 <body>
-
-    <!--Navbar Section Start-->
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!--Navbar Section Start-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg p-3 mb-7 rounded">
         <a class="navbar-brand" href="#">Game Compiler</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 
             </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
         </div>
     </nav>
-
-    <!--Navbar Section End-->
-    <hr>
-        <div class="text-center">
-            <p style="color:white;">
-            {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
-                {% if messages %}                            <!-- check if there are any messages -->
-                    {% for message in messages %}            <!-- loop through the messages -->
-                        <p>{{message}}</p>                   <!-- display each message in a paragraph tag -->
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-            </p>
-        </div>
-    <hr>
-    <!--Main Section Start-->
-
+<!--Navbar Section End-->
+<!--Main Section Start-->
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4 text-center">Game Compiler</h1>
-            <p class="lead text-center">Some clever text about making friends and playing games!</p>
-
+            <h1 class="display-4 text-center shadow-lg p-3 mb-7 rounded">Game Compiler</h1>
+            <div class="text-center">
+                <p >
+                {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+                    {% if messages %}                            <!-- check if there are any messages -->
+                        {% for message in messages %}            <!-- loop through the messages -->
+                            <p class="shadow-lg p-3 mb-7 rounded">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                </p>
+            </div>
+            <hr>
             <div class="container">
                 <div class="row">
                     <div class="col-sm">
-                        <h5>Create Account - Login Information</h5>
-                        <form action="/add/user" method="POST">
-                            <div class="form-group">
+                        <form class="shadow-lg p-3 mb-7 rounded" action="/add/user" method="POST">
+                            <h5 class="shadow-lg p-3 mb-7 rounded">Create Account - Login Information</h5>
+                            <div class="form-group shadow-lg p-3 mb-7 rounded">
                                 <label for="regEmail">Email</label>
                                 <input type="email" class="form-control" id="regEmail" name="regEmail" aria-describedby="regEmailHelp" placeholder="Enter email">
                                 <small id="regEmailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group shadow-lg p-3 mb-7 rounded">
                                 <label for="regPassword">Password</label>
                                 <input type="password" class="form-control" id="regPassword" name="regPassword" aria-describedby="regPasswordHelp" placeholder="Password">
                                 <small id="regPasswordHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group shadow-lg p-3 mb-7 rounded">
                                 <label for="regConfirmPassword">Confirm Password</label>
                                 <input type="password" class="form-control" id="regConfirmPassword" name="regConfirmPassword"  aria-describedby="regConfirmPasswordHelp" placeholder="Confirm Password">
                                 <small id="regConfirmPasswordHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
                             <hr>
-                            <h5>Create Account - Profile Information</h5>
-                            <div class="form-group">
+                            <h5 class="shadow-lg p-3 mb-7 rounded">Create Account - Profile Information</h5>
+                            <div class="form-group shadow-lg p-3 mb-7 rounded">
                                 <label for="regFirstName">First Name</label>
                                 <input type="text" class="form-control" id="regFirstName" name="regFirstName"  aria-describedby="regFirstNameHelp" placeholder="First Name">
                                 <small id="regFirstName" class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group shadow-lg p-3 mb-7 rounded">
                                 <label for="regLastName">Last Name</label>
                                 <input type="text" class="form-control" id="regLastName" name="regLastName"  aria-describedby="regLastNameHelp" placeholder="Last Name">
                                 <small id="regLastName" class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary shadow-lg p-3 mb-7 rounded">Submit</button>
                         </form>
                     </div>
-
                     <div class="col-sm">
-                        <h5>Login</h5>
-                        <form action="/login/user" method="POST">
-                        <div class="form-group">
+                        <form class="shadow-lg p-3 mb-7 rounded" action="/login/user" method="POST">
+                            <h5 class="shadow-lg p-3 mb-7 rounded">Login</h5>
+                            <div class="form-group shadow-lg p-3 mb-7 rounded">
                                 <label for="loginEmail">Email</label>
                                 <input type="email" class="form-control" id="loginEmail" name="loginEmail" aria-describedby="loginEmailHelp" placeholder="Enter email">
                                 <small id="regEmailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group shadow-lg p-3 mb-7 rounded">
                                 <label for="loginPassword">Password</label>
                                 <input type="password" class="form-control" id="loginPassword" name="loginPassword" aria-describedby="loginPasswordHelp" placeholder="Password">
                                 <small id="loginPasswordHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary shadow-lg p-3 mb-7 rounded">Submit</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div><!--Jumbotron Container End Div-->
     </div><!--Jumbotron End Div-->
-
-    <!--Main Section End-->
-    <!--Footer Section Start-->
-
+<!--Main Section End-->
+<!--Footer Section Start-->
     <footer class="page-footer font-small blue pt-4">
         <div class="container-fluid text-center text-md-left">
             <div class="row">
@@ -164,12 +149,10 @@
             <a href="https://mdbootstrap.com/education/bootstrap/">Game Compiler</a>
         </div>
     </footer>
-
-    <!--Footer Section End-->
-    <!--Scripts Below-->
+<!--Footer Section End-->
+<!--Scripts Below-->
     <!-- <script src="../static/js/signup.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
-
 </html>

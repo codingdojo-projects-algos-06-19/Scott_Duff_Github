@@ -8,20 +8,19 @@
     <title>event_Create.html.html</title>
     <style>
             * {
-                outline-color: orange;
+                outline-color: cyan;
                 outline-style: solid;
                 outline-width: 1px;
             }
     </style>
 </head>
 <body>
-    <!--Navbar Section Start-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!--Navbar Section Start-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-lg p-3 mb-7 rounded">
         <a class="navbar-brand" href="#">Game Compiler</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -47,20 +46,30 @@
                 </form>
         </div>
     </nav>
-    <!--Navbar Section End-->
-    <!--Main Section Start-->
+<!--Navbar Section End-->
+<!--Main Section Start-->
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4 text-center">Event Details</h1>
-            <p class="lead text-center">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+            <h1 class="display-4 text-center shadow-lg p-3 mb-7 rounded">Event Details</h1>
+            <div class="text-center">
+                <p>
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p class="shadow-lg p-3 mb-7 rounded">{{message}}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </p>
+            </div>
             <hr>
             <div class="container">
                 <div class="row">
                     <div class="col-sm">
-                        <h5>Game Information</h5>
                         
-                        <form action="/update/event/{{ event.id }}" method="POST">
-                            <div class="form-group">
+                        <form class="shadow-lg p-3 mb-7 rounded" action="/update/event/{{ event.id }}" method="POST">
+                            <h5 class="shadow-lg p-3 mb-7 rounded">Game Information</h5>
+                            <div class="form-group shadow-lg p-3 mb-7 rounded">
                                 <label for="regGame">Game Selector</label>
                                 <select class="form-control" id="updateGame" name="updateGame">
                                     <option value="{{ event.game }}">{{ event.game }}</option>
@@ -71,7 +80,7 @@
                                     <option value="Overcooked 2">Overcooked 2</option>
                                 </select>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group shadow-lg p-3 mb-7 rounded">
                                 <label for="regPlatform">Platform Selector</label>
                                 <select class="form-control" id="updatePlatform" name="updatePlatform">
                                     <option value="{{ event.platform }}">{{ event.platform }}</option>
@@ -82,13 +91,13 @@
                                 </select>
                             </div>
                             <hr>
-                            <h5>Event Details</h5>
-                            <div class="form-group">
+                            <h5 class="shadow-lg p-3 mb-7 rounded">Event Details</h5>
+                            <div class="form-group shadow-lg p-3 mb-7 rounded">
                                 <label for="regLocation">Location</label>
                                 <input type="text" class="form-control" id="updateLocation" name="updateLocation" value="{{ event.location }}" aria-describedby="regLocation" placeholder="Location">
                                 <small id="regLocation" class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group shadow-lg p-3 mb-7 rounded">
                                 <label for="regGame">Max Players</label>
                                 <select class="form-control" id="updatePlayers" name="updatePlayers">
                                     <option value="{{ event.max_players }}">{{ event.max_players }}</option>
@@ -97,39 +106,45 @@
                                     <option value="4">4</option>
                                 </select>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group shadow-lg p-3 mb-7 rounded">
                                 <label >Date</label>
                                 <input type="date" class="form-control" name="updateDate" placeholder="{{ event.event_date }}" max="12-31-2050" min="01-01-2018" class="form-control">
                                 <small id="updateDate" class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group shadow-lg p-3 mb-7 rounded">
                                 <label >Time</label>
                                 <input type="time" class="form-control" name="updateTime" placeholder="{{ event.event_time }}" class="form-control">
                                 <small id="updateTime" class="form-text text-muted">We'll never share your email with anyone else.</small>
                             </div>
-
-
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary shadow-lg p-3 mb-7 rounded">Submit</button>
                         </form>
                     </div>
                     <div class="col-sm">
-                    Another Column
+                        <form class="shadow-lg p-3 mb-7 rounded" action="/leave/event/{{ event.id }}">
+                            <h5 class="shadow-lg p-3 mb-7 rounded">Active Players</h5>
+                            <table class="table shadow-lg p-3 mb-7 rounded">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for user in eventPlayerQuery %}
+                                    <tr>
+                                        <td>{{ user.first_name }} {{ user.last_name }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-warning shadow-lg p-3 mb-7 rounded">Leave</button>
+                        </form>
                     </div>
                 </div>
             </div>
-
-
-
-
         </div><!--Jumbotron Container End Div-->
     </div><!--Jumbotron End Div-->
-
-
-
-
-
-    <!--Main Section End-->
-    <!--Footer Section Start-->
+<!--Main Section End-->
+<!--Footer Section Start-->
     <footer class="page-footer font-small blue pt-4">
         <div class="container-fluid text-center text-md-left">
             <div class="row">
@@ -178,8 +193,8 @@
             <a href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>
         </div>
     </footer>
-    <!--Footer Section End-->
-    <!--Scripts Below-->
+<!--Footer Section End-->
+<!--Scripts Below-->
     <script src="../static/js/event_create.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

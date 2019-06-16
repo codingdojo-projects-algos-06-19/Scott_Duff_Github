@@ -62,6 +62,7 @@ class Event(db.Model):
     event_time = db.Column(db.DateTime)
     max_players = db.Column(db.Integer)
     current_players = db.Column(db.Integer)
+    event_poster = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, server_default=func.now())
     updated_at = db.Column(db.DateTime, server_default=func.now(),
                            onupdate=func.now())
@@ -78,6 +79,22 @@ def signUp():
 @app.route("/add/user", methods=['POST'])
 def add_user():
     is_valid = True
+    # Email Validation
+    if not email_REGEX.match(request.form['regEmail']):
+        is_valid = False
+        flash("Invalid email address.")
+    checkForEmail = request.form['regEmail']
+    doesEmailExist = User.query.filter_by(email=checkForEmail).first()
+    if doesEmailExist:
+        is_valid = False
+        flash("Email already exists.")
+    # Password Validation
+    if len(request.form['regPassword']) < 5:
+        is_valid = False
+        flash("Password must be at least 5 characters.")
+    if (request.form['regPassword']) != (request.form['regConfirmPassword']):
+        is_valid = False
+        flash("Password and confirm password do not match.")
     # First Name Validation
     if len(request.form['regFirstName']) <= 2:
         is_valid = False
@@ -92,22 +109,6 @@ def add_user():
     if not name_REGEX.match(request.form['regLastName']):
         is_valid = False
         flash("Last Name must contain only letters and numbers.")
-    # Email Validation
-        if not email_REGEX.match(request.form['regEmail']):
-            is_valid = False
-            flash("Invalid email address.")
-        checkForEmail = request.form['regEmail']
-        doesEmailExist = User.query.filter_by(email=checkForEmail).first()
-        if doesEmailExist:
-            is_valid = False
-            flash("Email already exists.")
-    # Password Validation
-    if len(request.form['regPassword']) < 5:
-        is_valid = False
-        flash("Password must be at least 5 characters.")
-    if (request.form['regPassword']) != (request.form['regConfirmPassword']):
-        is_valid = False
-        flash("Password and confirm password do not match.")
     # User Created
     if is_valid:
         flash("User successfully registered!")
@@ -173,7 +174,7 @@ def account_user(id):
 
 
 # User Update Function
-@app.route("/update/user/<id>")
+@app.route("/update/user/<id>", methods=['POST'])
 def update_user(id):
     is_valid = True
     # First Name Validation
@@ -232,7 +233,8 @@ def add_event():
                              event_date=Date,
                              event_time=Time,
                              max_players=request.form['regPlayers'],
-                             current_players=1)
+                             current_players=1,
+                             event_poster=session['userid'])
     db.session.add(create_new_event)
     db.session.commit()
     event = Event.query.order_by(desc('created_at')).first()
@@ -261,16 +263,57 @@ def update_event(id):
 # event_details HTML
 @app.route("/event/details/<id>")
 def event_details(id):
+    eventPlayerQuery = User.query.join(User.events_for_users).filter(Event.id == id).all()
     eventQuery = Event.query.get(id)
-    return render_template("event_details.html", event=eventQuery)
+    return render_template("event_details.html", event=eventQuery, eventPlayerQuery=eventPlayerQuery)
 
 
+# event_view HTML
+@app.route("/event/view/<id>")
+def event_view(id):
+    eventPlayerQuery = User.query.join(User.events_for_users).filter(Event.id == id).all()
+    eventQuery = Event.query.get(id)
+    return render_template("event_view.html", event=eventQuery, eventPlayerQuery=eventPlayerQuery)
+
+
+# Join Event Function
+@app.route("/join/event/<id>")
+def join_event(id):
+    eventToJoin = Event.query.get(id)
+    userToJoin = User.query.get(session['userid'])
+    if (User.query.join(User.events_for_users).filter(User.id == session['userid'], Event.id == id)).first():
+        flash("You have already joined!")
+    else:
+        if (eventToJoin.current_players < eventToJoin.max_players):
+            userToJoin.events_for_users.append(eventToJoin)
+            eventToJoin.current_players += 1
+            db.session.commit()
+        else:
+            flash("Player limit reached!")
+    return redirect("/event/search")
+
+
+# Delete Event Function
 @app.route("/delete/event/<id>")
 def deleteEvent(id):
     delete_event = Event.query.get(id)
     db.session.delete(delete_event)
     db.session.commit()
     return redirect("/event/search")
+
+
+# Leave Event Function
+@app.route("/leave/event/<id>")
+def leaveEvent(id):
+    if (User.query.join(User.events_for_users).filter(User.id == session['userid'], Event.id == id)).first():
+        removeUser = User.query.get(session['userid'])
+        removeEvent = Event.query.get(id)
+        removeEvent.current_players -= 1
+        removeUser.events_for_users.remove(removeEvent)
+        db.session.commit()
+    else:
+        flash("You are not part of this event.")
+    return redirect("/event/details/" + id)
 
 
 if __name__ == "__main__":
